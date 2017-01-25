@@ -11,6 +11,10 @@ private:
 	const int AMMO_START_VALUE = 12;
 	const int START_WAIT_TIME = 10;
 	const int START_SECONDS_TO_LIVE = 5;
+	const int POWER_UP_TO_LIVE = 30;
+	const int POWER_UP_VALUE = 10;
+	const int POWER_UP_START_TIME = 0;
+	const int FIRE_POWER_START_RATE = 1;
 
 
 	// The sprite that represents this pickup
@@ -30,12 +34,19 @@ private:
 	bool m_Spawned;
 	float m_SecondsSinceSpawn;
 	float m_SecondsSinceDeSpawn;
+	float m_PowerUpStartTime;
 	float m_SecondsToLive;
 	float m_SecondsToWait;
+	float m_PowerUpToLive;
+	int m_PowerUPValue;
+	int m_FirePowerStartRate;
 
 	// Public protoypes go here
 
 public:
+	float powerUpStartTime = 0.567;
+	float* p_powerUpStartTime;
+
 	Pickup::Pickup(int type);
 
 	// Prepare a new pickup
@@ -57,6 +68,11 @@ public:
 	// Get the goodness from the pickup
 	int gotIt();
 
-	// Updagrade the value of each pickup
+	// Updgrade the value of each pickup
 	void upgrade();
+
+	// How long should the powerup last
+	float powerUpLife(float elapsedTime);
+
+	float Pickup::powerUpTime(float elapsedTime);
 };

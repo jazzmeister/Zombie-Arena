@@ -73,6 +73,7 @@
     <ClCompile Include="CreateHorde.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
+    <ClCompile Include="PowerUpTimer.cpp" />
     <ClCompile Include="Zombie.cpp" />
     <ClCompile Include="ZombieArena.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TextureHolder.h" />
+    <ClInclude Include="PowerUpTimer.h" />
     <ClInclude Include="Zombie.h" />
     <ClInclude Include="ZombieArena.h" />
   </ItemGroup>

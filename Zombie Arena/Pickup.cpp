@@ -22,12 +22,26 @@ Pickup::Pickup(int type)
 		// How much is the pickup worth?
 		m_Value = AMMO_START_VALUE;
 	}
+	else if (m_Type == 3)
+	{
+		m_Sprite = Sprite(TextureHolder::GetTexture("graphics/firePowerUp_pickup.png"));
+
+		// How much does powerup give
+		m_Value = POWER_UP_VALUE;
+	}
 	
 
 	m_Sprite.setOrigin(25, 25);
 
 	m_SecondsToLive = START_SECONDS_TO_LIVE;
 	m_SecondsToWait = START_WAIT_TIME;
+	m_PowerUpToLive = POWER_UP_TO_LIVE;
+	m_PowerUPValue = POWER_UP_VALUE;
+	m_PowerUpStartTime = POWER_UP_START_TIME;
+	m_FirePowerStartRate = FIRE_POWER_START_RATE;
+
+	p_powerUpStartTime = &powerUpStartTime;
+	
 }
 
 void Pickup::setArena(IntRect arena)
@@ -46,7 +60,7 @@ void Pickup::spawn()
 {
 	// Spawn at a random location
 	srand((int)time(0) / m_Type);
-	int x = (rand() % m_Arena.width);
+    int x = (rand() % m_Arena.width);
 	srand((int)time(0) * m_Type);
 	int y = (rand() % m_Arena.height);
 
@@ -76,8 +90,10 @@ int Pickup::gotIt()
 {
 	m_Spawned = false;
 	m_SecondsSinceDeSpawn = 0;
+	m_PowerUpStartTime = 0;
 	return m_Value;
 }
+
 
 void Pickup::update(float elapsedTime)
 {
@@ -117,11 +133,36 @@ void Pickup::upgrade()
 	{
 		m_Value += (AMMO_START_VALUE * .5);
 	}
+	if (m_Type == 3)
+	{
+		m_Value += (POWER_UP_VALUE * .5);
+	}
 
 	// Make them more frequent and last longer
 	m_SecondsToLive += (START_SECONDS_TO_LIVE / 10);
 	m_SecondsToWait -= (START_WAIT_TIME / 10);
 }
+
+float Pickup::powerUpLife(float elapsedTime)
+{
+	/*if (m_PowerUpStartTime += elapsedTime)
+	{	
+		return (1);
+	}
+	else
+	{
+		return (0);
+	}*/
+
+	return elapsedTime;
+}
+
+float Pickup::powerUpTime(float elapsedTime)
+{	 
+
+	return elapsedTime + 10;
+}
+
 
 
 

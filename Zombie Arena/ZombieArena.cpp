@@ -9,6 +9,8 @@
 #include "Bullet.h"
 #include "Pickup.h"
 #include <iostream>
+#include "PowerUpTimer.h"
+#include <ctime>
 
 using namespace sf;
 using namespace std;
@@ -39,8 +41,24 @@ int main()
 
 	// Create an SFML view for the main action
 	View mainView(sf::FloatRect(0, 0, resolution.x, resolution.y));
+
+	
+	
 	// Here is our clock for timing everything
 	Clock clock;
+
+	// Here is our clock for timing the power ups
+	Clock powerUpClock;
+	Time powerUpTime;
+	
+
+	// Create variables for power Up lifetime
+	
+	int start = powerUpTime.asSeconds();
+	int life = start + 5;
+
+
+	Time elapsed = clock.getElapsedTime();
 
 	// How long has the PLAYING state been active?
 	Time gameTimeTotal;
@@ -87,6 +105,8 @@ int main()
 	// Create a couple of pickups
 	Pickup healthPickup(1);
 	Pickup ammoPickup(2);
+	Pickup fireRatePickup(3);
+
 	
 
 	// About the game
@@ -461,6 +481,7 @@ int main()
 
 			if (state == State::PLAYING)
 			{
+							
 				// Increase the wave number
 				wave++;
 
@@ -480,6 +501,8 @@ int main()
 				// Configure the pickups
 				healthPickup.setArena(arena);
 				ammoPickup.setArena(arena);
+				fireRatePickup.setArena(arena);
+			
 
 				// Create a horde of zombies
 				numZombies = 5 * wave;
@@ -513,6 +536,9 @@ int main()
 
 			// Update the total game time
 			gameTimeTotal += dt;
+
+			// 
+			float totalGameTimeSofar = gameTimeTotal.asSeconds();
 
 			// Make a decimal fraction of 1 from the delta time
 			float dtAsSeconds = dt.asSeconds();
@@ -558,6 +584,10 @@ int main()
 			// Update the pickups
 			healthPickup.update(dtAsSeconds);
 			ammoPickup.update(dtAsSeconds);
+			fireRatePickup.update(dtAsSeconds);
+
+
+
 
 
 			// Collision detection
@@ -635,6 +665,49 @@ int main()
 				reload.play();
 			}
 
+			
+			// Has the player touched fireRarePickup
+
+				// ***************************** TO DO  ****************************
+			
+
+			if (player.getPosition().intersects
+			(fireRatePickup.getPosition()) && fireRatePickup.isSpawned())
+			{
+				fireRatePickup.gotIt();
+				//Play a sound
+				reload.play();
+				powerUpTime = powerUpClock.getElapsedTime();
+				int start = powerUpTime.asSeconds();
+				int life = start + 5;
+				
+				cout << powerUpTime.asSeconds() << endl;
+			
+				if ((powerUpTime.asSeconds() <= life)) {
+					while ((powerUpTime.asSeconds() <= life))
+					{
+						powerUpTime = powerUpClock.getElapsedTime();
+						cout << "***************************************LIFE**************************************************" << endl;
+						cout << "LIFE = " << life << endl;
+						fireRate = 10;
+						cout << "FireRate = " << fireRate << endl;
+						cout << "powerUpTime: " << powerUpTime.asSeconds() << endl;
+						cout << "start: " << start << endl;
+						cout << "life: " << life << endl;
+						break;
+					}
+				}
+				if ((powerUpTime.asSeconds() >= life)) {
+					{
+						fireRate = 1;
+						cout << "FireRate = " << fireRate << endl;
+						cout << "powerUpTime2: " << powerUpTime.asSeconds() << endl;
+						cout << "start2: " << start << endl;
+						cout << "life2: " << life << endl;
+					}
+				}
+			}
+						
 
 			// size up the health bar
 			healthBar.setSize(Vector2f(player.getHealth() * 3, 70));
@@ -722,6 +795,11 @@ int main()
 			{
 				window.draw(healthPickup.getSprite());
 			}
+			if (fireRatePickup.isSpawned())
+			{
+				window.draw(fireRatePickup.getSprite());
+			}
+
 			
 
 			// Draw the crosshair
@@ -767,3 +845,4 @@ int main()
 
 	return 0;
 }
+
