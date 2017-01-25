@@ -54,8 +54,8 @@ int main()
 
 	// Create variables for power Up lifetime
 	
-	int start = powerUpTime.asSeconds();
-	int life = start + 5;
+	int start = NULL;
+	int life = NULL;
 
 
 	Time elapsed = clock.getElapsedTime();
@@ -678,14 +678,20 @@ int main()
 				//Play a sound
 				reload.play();
 				powerUpTime = powerUpClock.getElapsedTime();
-				int start = powerUpTime.asSeconds();
-				int life = start + 5;
-				
-				cout << powerUpTime.asSeconds() << endl;
-			
-				if ((powerUpTime.asSeconds() <= life)) {
-					while ((powerUpTime.asSeconds() <= life))
-					{
+				start = powerUpTime.asSeconds();
+				life = start + 5;
+
+
+				cout << "FireRate = " << fireRate << endl;
+				cout << "powerUpTime: " << powerUpTime.asSeconds() << endl;
+				cout << "start: " << start << endl;
+				cout << "life: " << life << endl;
+			}
+			start = start;
+			life = life;
+			if ((powerUpTime.asSeconds() < life))
+					
+				{
 						powerUpTime = powerUpClock.getElapsedTime();
 						cout << "***************************************LIFE**************************************************" << endl;
 						cout << "LIFE = " << life << endl;
@@ -694,19 +700,21 @@ int main()
 						cout << "powerUpTime: " << powerUpTime.asSeconds() << endl;
 						cout << "start: " << start << endl;
 						cout << "life: " << life << endl;
-						break;
-					}
+						
+						
 				}
-				if ((powerUpTime.asSeconds() >= life)) {
-					{
+			start = start;
+			life = life;
+			if ((powerUpTime.asSeconds() > life)) {
+				{
 						fireRate = 1;
 						cout << "FireRate = " << fireRate << endl;
 						cout << "powerUpTime2: " << powerUpTime.asSeconds() << endl;
 						cout << "start2: " << start << endl;
 						cout << "life2: " << life << endl;
-					}
 				}
 			}
+		
 						
 
 			// size up the health bar
