@@ -11,9 +11,9 @@ private:
 	const int AMMO_START_VALUE = 12;
 	const int START_WAIT_TIME = 10;
 	const int START_SECONDS_TO_LIVE = 5;
-	const int POWER_UP_TO_LIVE = 30;
+	const int POWER_UP_SECONDS_TO_LIVE = 15;
 	const int POWER_UP_VALUE = 10;
-	const int POWER_UP_START_TIME = 0;
+	const int POWER_UP_SECONDS_TO_WAIT = 33;
 	const int FIRE_POWER_START_RATE = 1;
 
 
@@ -34,10 +34,10 @@ private:
 	bool m_Spawned;
 	float m_SecondsSinceSpawn;
 	float m_SecondsSinceDeSpawn;
-	float m_PowerUpStartTime;
+	float m_PowerUpSecondsToWait;
 	float m_SecondsToLive;
 	float m_SecondsToWait;
-	float m_PowerUpToLive;
+	float m_PowerUpSecondsToLive;
 	int m_PowerUPValue;
 	int m_FirePowerStartRate;
 
@@ -62,6 +62,9 @@ public:
 	// Let the pickup update itself each frame
 	void update(float elapsedTime);
 
+	// Let the powerup pickup update itself each frame
+	void updatePowerUp(float elapsedTime);
+
 	// Is this pickup currently spawned
 	bool isSpawned();
 
@@ -71,8 +74,5 @@ public:
 	// Updgrade the value of each pickup
 	void upgrade();
 
-	// How long should the powerup last
-	float powerUpLife(float elapsedTime);
-
-	float Pickup::powerUpTime(float elapsedTime);
+	
 };

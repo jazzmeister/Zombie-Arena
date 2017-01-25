@@ -56,6 +56,7 @@ int main()
 	
 	int start = NULL;
 	int life = NULL;
+	int powerUpLifeSpan = 12;
 
 
 	Time elapsed = clock.getElapsedTime();
@@ -584,7 +585,7 @@ int main()
 			// Update the pickups
 			healthPickup.update(dtAsSeconds);
 			ammoPickup.update(dtAsSeconds);
-			fireRatePickup.update(dtAsSeconds);
+			fireRatePickup.updatePowerUp(dtAsSeconds);
 
 
 
@@ -679,13 +680,14 @@ int main()
 				reload.play();
 				powerUpTime = powerUpClock.getElapsedTime();
 				start = powerUpTime.asSeconds();
-				life = start + 5;
+				life = start + powerUpLifeSpan;
 
-
+				// For debugging
+				/*
 				cout << "FireRate = " << fireRate << endl;
 				cout << "powerUpTime: " << powerUpTime.asSeconds() << endl;
 				cout << "start: " << start << endl;
-				cout << "life: " << life << endl;
+				cout << "life: " << life << endl;*/
 			}
 			start = start;
 			life = life;
@@ -693,13 +695,15 @@ int main()
 					
 				{
 						powerUpTime = powerUpClock.getElapsedTime();
-						cout << "***************************************LIFE**************************************************" << endl;
-						cout << "LIFE = " << life << endl;
-						fireRate = 10;
-						cout << "FireRate = " << fireRate << endl;
+						fireRate = 5;
+						// For debugging
+						/*cout << "***************************************LIFE**************************************************" << endl;
+						cout << "LIFE = " << life << endl;*/
+						
+						/*cout << "FireRate = " << fireRate << endl;
 						cout << "powerUpTime: " << powerUpTime.asSeconds() << endl;
 						cout << "start: " << start << endl;
-						cout << "life: " << life << endl;
+						cout << "life: " << life << endl;*/
 						
 						
 				}
@@ -708,10 +712,10 @@ int main()
 			if ((powerUpTime.asSeconds() > life)) {
 				{
 						fireRate = 1;
-						cout << "FireRate = " << fireRate << endl;
+						/*cout << "FireRate = " << fireRate << endl;
 						cout << "powerUpTime2: " << powerUpTime.asSeconds() << endl;
 						cout << "start2: " << start << endl;
-						cout << "life2: " << life << endl;
+						cout << "life2: " << life << endl;*/
 				}
 			}
 		

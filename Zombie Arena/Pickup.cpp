@@ -35,9 +35,9 @@ Pickup::Pickup(int type)
 
 	m_SecondsToLive = START_SECONDS_TO_LIVE;
 	m_SecondsToWait = START_WAIT_TIME;
-	m_PowerUpToLive = POWER_UP_TO_LIVE;
+	m_PowerUpSecondsToLive = POWER_UP_SECONDS_TO_LIVE;
 	m_PowerUPValue = POWER_UP_VALUE;
-	m_PowerUpStartTime = POWER_UP_START_TIME;
+	m_PowerUpSecondsToWait = POWER_UP_SECONDS_TO_WAIT;
 	m_FirePowerStartRate = FIRE_POWER_START_RATE;
 
 	p_powerUpStartTime = &powerUpStartTime;
@@ -90,7 +90,7 @@ int Pickup::gotIt()
 {
 	m_Spawned = false;
 	m_SecondsSinceDeSpawn = 0;
-	m_PowerUpStartTime = 0;
+	//m_PowerUpSecondsToWait = 0;
 	return m_Value;
 }
 
@@ -123,6 +123,34 @@ void Pickup::update(float elapsedTime)
 
 }
 
+void Pickup::updatePowerUp(float elapsedTime)
+{
+	if (m_Spawned)
+	{
+		m_SecondsSinceSpawn += elapsedTime;
+	}
+	else
+	{
+		m_SecondsSinceDeSpawn += elapsedTime;
+	}
+
+	// Do we need to hide a pickup?
+	if (m_SecondsSinceSpawn > m_PowerUpSecondsToLive && m_Spawned)
+	{
+		// Remove the pickup and put it somewhere else
+		m_Spawned = false;
+		m_SecondsSinceDeSpawn = 0;
+	}
+
+	// Do we need to spawn a pickup?
+	if (m_SecondsSinceDeSpawn > m_PowerUpSecondsToWait && !m_Spawned)
+	{
+		// spawn the pickup and reset the timer
+		spawn();
+	}
+
+}
+
 void Pickup::upgrade()
 {
 	if (m_Type == 1)
@@ -143,25 +171,7 @@ void Pickup::upgrade()
 	m_SecondsToWait -= (START_WAIT_TIME / 10);
 }
 
-float Pickup::powerUpLife(float elapsedTime)
-{
-	/*if (m_PowerUpStartTime += elapsedTime)
-	{	
-		return (1);
-	}
-	else
-	{
-		return (0);
-	}*/
 
-	return elapsedTime;
-}
-
-float Pickup::powerUpTime(float elapsedTime)
-{	 
-
-	return elapsedTime + 10;
-}
 
 
 
