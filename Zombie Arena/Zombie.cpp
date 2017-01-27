@@ -13,7 +13,7 @@ void Zombie::spawn(float startX, float startY, int type, int seed)
 	{
 		case 0:
 			// Bloater
-			m_Sprite = Sprite(TextureHolder::GetTexture("graphics/zombie1.png"));
+			m_Sprite = Sprite(TextureHolder::GetTexture("graphics/zombie3.png"));
 
 			m_Speed = 40;
 			m_Health = 5;
@@ -29,7 +29,7 @@ void Zombie::spawn(float startX, float startY, int type, int seed)
 
 		case 2:
 			// Crawler
-			m_Sprite = Sprite(TextureHolder::GetTexture("graphics/zombie1.png"));
+			m_Sprite = Sprite(TextureHolder::GetTexture("graphics/zombie2.png"));
 
 			m_Speed = 20;
 			m_Health = 3;

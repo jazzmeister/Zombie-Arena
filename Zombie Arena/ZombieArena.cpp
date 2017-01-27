@@ -294,6 +294,19 @@ int main()
 	Sound pickup;
 	pickup.setBuffer(pickupBuffer);
 
+	// Prepare the music
+	Music music;
+	if (!music.openFromFile("sound/spooky.ogg"))
+	{
+		std::cout << "ERROR" << endl;
+	}
+	
+	//	return -1; //error
+	
+	music.play();
+	music.setLoop(true);
+
+	
 
 	// The main game loop
 	while (window.isOpen())
