@@ -46,6 +46,12 @@ private:
 	// Speed in pixels per second;
 	float m_Speed;
 
+	// How big and at what position should be displayed on the spritesheet?
+	int m_a; // the size of the rectangle area revealed across
+	int m_b; // the size of the rectangle area revealed up/down
+	int m_x; // the number of pixels across in x to start the rectangle 
+	int m_y; // the number of pixels up/down in y to start the rectangle
+
 
 
 	// All our functions will come next
@@ -106,5 +112,8 @@ public:
 
 	// How much health has the player currently got?
 	int getHealth();
+
+	// Set textureRectangle for sprite and its animation
+	void spriteTextRect(int a, int b, int x, int y);
 
 };

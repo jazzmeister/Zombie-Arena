@@ -72,6 +72,12 @@ int main()
 	// Create an instance of the Player class
 	Player player;
 
+	// Counter for walking of Player
+	int counterWalking = 0;
+
+	// counter for walking animation of zombies
+	int zombieWalkingCounter = 0;
+
 	// The boundaries of the arena
 	IntRect arena;
 
@@ -288,7 +294,7 @@ int main()
 	Sound pickup;
 	pickup.setBuffer(pickupBuffer);
 
-	
+
 	// The main game loop
 	while (window.isOpen())
 	{
@@ -379,34 +385,49 @@ int main()
 			if (Keyboard::isKeyPressed(Keyboard::W))
 			{
 				player.moveUp();
+			    player.spriteTextRect((counterWalking / 200) * 96 , 64, 96, 96);
 			}
 			else
 			{
 				player.stopUp();
+				player.spriteTextRect(0, 64, 96, 96);
 			}
 			if (Keyboard::isKeyPressed(Keyboard::S))
 			{
 				player.moveDown();
+				player.spriteTextRect((counterWalking / 200) * 96, 64, 96, 96);
 			}
 			else
 			{
 				player.stopDown();
+				//player.spriteTextRect(0, 64, 96, 96);
 			}
 			if (Keyboard::isKeyPressed(Keyboard::A))
 			{
 				player.moveLeft();
+				player.spriteTextRect((counterWalking / 200) * 96, 64, 96, 96);
 			}
 			else
 			{
 				player.stopLeft();
+				//player.spriteTextRect(0, 64, 96, 96);
 			}
 			if (Keyboard::isKeyPressed(Keyboard::D))
 			{
 				player.moveRight();
+				player.spriteTextRect((counterWalking / 200) * 96, 64, 96, 96);
 			}
 			else
 			{
 				player.stopRight();
+				//player.spriteTextRect(0, 64, 96, 96);
+			}
+
+			counterWalking++;
+
+			if (counterWalking == 1600)
+			{
+				counterWalking = 0;
 			}
 
 			// Fire a bullet
@@ -569,6 +590,14 @@ int main()
 				if (zombies[i].isAlive())
 				{
 					zombies[i].update(dt.asSeconds(), playerPosition);
+					zombies[i].spriteTextRect((zombieWalkingCounter / 3200) * 110, 0, 110, 55);
+
+					zombieWalkingCounter++;
+
+					if (zombieWalkingCounter == 25600)
+					{
+						zombieWalkingCounter = 0;
+					}
 				}
 
 			}
@@ -707,11 +736,11 @@ int main()
 						
 						
 				}
-			start = start;
-			life = life;
+
 			if ((powerUpTime.asSeconds() > life)) {
 				{
 						fireRate = 1;
+						// For debugging
 						/*cout << "FireRate = " << fireRate << endl;
 						cout << "powerUpTime2: " << powerUpTime.asSeconds() << endl;
 						cout << "start2: " << start << endl;
@@ -797,6 +826,7 @@ int main()
 
 			// Draw the player
 			window.draw(player.getSprite());
+			
 
 			// Draw the pickups, if currently spawned
 			if (ammoPickup.isSpawned())

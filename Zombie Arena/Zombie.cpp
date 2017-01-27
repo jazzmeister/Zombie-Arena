@@ -3,6 +3,7 @@
 #include "TextureHolder.h"
 #include <cstdlib>
 #include <ctime>
+#include <SFML/Graphics.hpp>
 
 using namespace std;
 
@@ -12,7 +13,7 @@ void Zombie::spawn(float startX, float startY, int type, int seed)
 	{
 		case 0:
 			// Bloater
-			m_Sprite = Sprite(TextureHolder::GetTexture("graphics/bloater.png"));
+			m_Sprite = Sprite(TextureHolder::GetTexture("graphics/zombie1.png"));
 
 			m_Speed = 40;
 			m_Health = 5;
@@ -20,7 +21,7 @@ void Zombie::spawn(float startX, float startY, int type, int seed)
 
 		case 1:
 			// Chaser
-			m_Sprite = Sprite(TextureHolder::GetTexture("graphics/chaser.png"));
+			m_Sprite = Sprite(TextureHolder::GetTexture("graphics/zombie1.png"));
 
 			m_Speed = 70;
 			m_Health = 1;
@@ -28,7 +29,7 @@ void Zombie::spawn(float startX, float startY, int type, int seed)
 
 		case 2:
 			// Crawler
-			m_Sprite = Sprite(TextureHolder::GetTexture("graphics/crawler.png"));
+			m_Sprite = Sprite(TextureHolder::GetTexture("graphics/zombie1.png"));
 
 			m_Speed = 20;
 			m_Health = 3;
@@ -68,7 +69,7 @@ bool Zombie::hit()
 	{
 		// dead
 		m_Alive = false;
-		m_Sprite.setTexture(TextureHolder::GetTexture("graphics/blood.png"));
+		m_Sprite.setTexture(TextureHolder::GetTexture("graphics/blood1.png"));
 
 		return true;
 	}
@@ -128,7 +129,17 @@ void Zombie::update(float elapsedTime, Vector2f playerLocation)
 	m_Sprite.setRotation(angle);
 }
 
+void Zombie::spriteTextRect(int a, int b, int x, int y)
+{
+	m_Sprite.setTextureRect(IntRect(a, b, x, y));
 
+	//m_a = a;
+	//m_b = b;
+	//m_x = x;
+	//m_y = y;
+
+	//return a, b, x, y;
+}
 
 
 

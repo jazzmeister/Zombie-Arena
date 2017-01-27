@@ -9,12 +9,11 @@ Player::Player()
 	m_MaxHealth = START_HEALTH;
 
 	// Associate a texture with the sprite
-	m_Sprite = Sprite(TextureHolder::GetTexture("graphics/player.png"));
-	
+	m_Sprite = Sprite(TextureHolder::GetTexture("graphics/player1.png"));		
 
 	// Set the origin of the sprite to the centre,
 	// for Smooth rotation
-	m_Sprite.setOrigin(25, 25);
+	m_Sprite.setOrigin(47, 32);
 }
 
 void Player::spawn(IntRect arena, Vector2f resolution, int tileSize)
@@ -204,7 +203,18 @@ void Player::increaseHealthLevel(int amount)
 }
 
 
+// Set texureRectangle for sprite for animation (a & b is the size of rectangle to show on spritesheet, x & y are the positioning on spritesheet
+void Player::spriteTextRect(int a, int b, int x, int y)
+{
+	m_Sprite.setTextureRect(IntRect(a, b, x, y));
 
+	m_a = a;
+	m_b = b;
+	m_x = x;
+	m_y = y;
+
+	//return a, b, x, y;
+}
 
 
 

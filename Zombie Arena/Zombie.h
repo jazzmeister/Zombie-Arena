@@ -55,4 +55,8 @@ public:
 	// Update the zombie each frame
 	void update(float elapsedTime, Vector2f playerLocation);
 
+	// Animates the zombie sprite
+	void Zombie::spriteTextRect(int a, int b, int x, int y);
+
 };
+
