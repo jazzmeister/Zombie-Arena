@@ -294,6 +294,21 @@ int main()
 	Sound pickup;
 	pickup.setBuffer(pickupBuffer);
 
+	// Prepare the zombie sounds
+	SoundBuffer zombieBrainsBuffer;
+	zombieBrainsBuffer.loadFromFile("sound/brains.wav");
+	Sound zombieBrains;
+	pickup.setBuffer(zombieBrainsBuffer);
+
+	SoundBuffer zombieMoanBuffer;
+	zombieMoanBuffer.loadFromFile("sound/zombieMoan.wav");
+	Sound zombieMoan;
+	pickup.setBuffer(zombieMoanBuffer);
+
+	// Set variable for random number zombie sound randomiser
+	srand(time(NULL));
+	int zRand;
+
 	// Prepare the music
 	Music music;
 	if (!music.openFromFile("sound/spooky.ogg"))
@@ -613,6 +628,19 @@ int main()
 					}
 				}
 
+			}
+
+			// Generate random sounds for zombies
+			zRand = rand() % 100 + 1;
+			if (zRand < 55 && zRand > 45) 
+			{
+				zombieMoan.play();
+				
+			}
+			
+			if (zRand < 100 && zRand > 65)
+			{
+				zombieBrains.play();
 			}
 
 			// Update any bullets that are in flight
